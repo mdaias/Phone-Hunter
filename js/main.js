@@ -3,7 +3,7 @@
     const searchField = document.getElementById('input-field');
     const searchText = searchField.value;
     searchField.value = '';
-
+    document.getElementById('spinner').style.display="block";
     const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`
 
     fetch(url)
@@ -12,7 +12,7 @@
 }
 //Display search result
     const displayResult = phones => {
-    
+    document.getElementById('spinner').style.display="none";
     const divContainer = document.getElementById('phone-result');
     const detailsContainer = document.getElementById('show-details');
     
@@ -98,7 +98,7 @@
                     <h6 class="text-white">GPS: <span>${details.data.others?.GPS?details.data.others.GPS:"not found"}</span></h6>
                 </div>
             </div>
-                <h6 class="text-white">Sensors: <span>${sensors.join()}</span></h6>   
+                <h6 class="text-white text-center">Sensors: <span>${sensors.join()}</span></h6>   
         </div>
     </div>
     

@@ -28,12 +28,16 @@
 
         <!-- Search Field -->
         <div class="input-group mb-3 w-75 mx-auto">
-            <input type="text" id="input-field" class="form-control" placeholder="Phone Search" aria-label="Recipient's username" aria-describedby="button-addon2">
+            <input type="text" id="input-field" class="form-control" placeholder="Search Phone" aria-label="Recipient's username" aria-describedby="button-addon2">
             <button onclick="searchPhone()" class="btn btn-outline-primary text-white" type="button" id="search-btn">Search</button>
           </div>
         
         <!-- Show search result -->
         <section>
+            <div class="d-flex justify-content-center d-none">
+                <img id="spinner" class="w-50" src="image/dot_loader.gif" alt="">
+            </div>
+
             <!-- Show phone details -->
             <div id="show-details" class="my-5">
 
