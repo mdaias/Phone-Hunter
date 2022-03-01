@@ -1,4 +1,5 @@
-const searchPhone = () => {
+//load search data
+    const searchPhone = () => {
     const searchField = document.getElementById('input-field');
     const searchText = searchField.value;
     searchField.value = '';
@@ -9,40 +10,42 @@ const searchPhone = () => {
     .then(res => res.json())
     .then(data => displayResult(data.data))
 }
-
-const displayResult = phones => {
+//Display search result
+    const displayResult = phones => {
     
     const divContainer = document.getElementById('phone-result');
     const detailsContainer = document.getElementById('show-details');
     
-    //clear previous result
+//clear previous result
     divContainer.textContent = '';
     detailsContainer.textContent = '';
-    
-    phones.forEach(phone =>{
-        // console.log(phone.slug)
 
-        const div = document.createElement('div');
-        div.classList.add('col');
-        div.innerHTML = `
-            <div class="card p-2 shadow-lg">
-                <img src="${phone.image}" class="card-img-top w-50 mx-auto" alt="...">
-                <div class="card-body">
-                    <h4 class="card-title">${phone.phone_name}</h4>
-                    <h5 class="card-title">Brand: <span>${phone.brand}</span></h5>
-                </div>
+//Show first 20 result
+    const first20Phones = phones.slice(0,20);
+    first20Phones.forEach(phone =>{
+    //  console.log(phone)
 
-                <div class="d-grid gap-2 col-6 mx-auto">
-                    <button onclick="phoneDetails('${phone.slug}')" class="btn btn-primary" type="button">Details</button>
-                </div>
+    const div = document.createElement('div');
+    div.classList.add('col');
+    div.innerHTML = `
+        <div class="card p-2 shadow-lg">
+            <img src="${phone.image}" class="card-img-top w-50 mx-auto" alt="...">
+            <div class="card-body">
+                <h4 class="card-title text-center">${phone.phone_name}</h4>
+                <h5 class="card-title">Brand: <span>${phone.brand}</span></h5>
             </div>
+
+            <div class="d-grid gap-2 col-6 mx-auto">
+                <a href="#" role="button" onclick="phoneDetails('${phone.slug}')" class="btn btn-primary" type="button">Details</button></a>
+            </div>
+        </div>
         `
         divContainer.appendChild(div);
     })
 }
 
 //Phone details data load
-const phoneDetails = id => {
+    const phoneDetails = id => {
     const url = `https://openapi.programming-hero.com/api/phone/${id}`
     fetch(url)
     .then(res => res.json())
@@ -50,21 +53,19 @@ const phoneDetails = id => {
 }
 
 //display phone details
-const displaydetails = details => {
+    const displaydetails = details => {
     console.log(details);
 
+//Destructuring object
     const {brand,image,name,releaseDate} = details.data;
     const {chipSet,displaySize,memory,storage} =details.data.mainFeatures;
-    const {Bluetooth,GPS,NFC,Radio,USB,WLAN} = details.data.others;
-    // console.log(Bluetooth,GPS,NFC);
 
-    // let releaseDate = details.data;
-    // if(releaseDate == 0){
-    //     releaseDate = "no release date"
-    // }
+    const sensors = details.data.mainFeatures.sensors;
+        // console.log(sensors);
 
     const detailsContainer = document.getElementById('show-details');
-    //clear previous result
+
+//clear previous result
     detailsContainer.textContent = '';
 
     const div = document.createElement('div');
@@ -77,26 +78,27 @@ const displaydetails = details => {
         </div>
         <div class="col-12 col-md-6">
             <div>
-                <h4 class="text-white">Name: ${name}</h4>
+                <h3 class="details-heading text-center mt-2">${brand} ${name} Full Specifications</h3>
                 <h5 class="text-white">Brand: <span>${brand}</span></h5>
-                <h6 class="text-white">Release Date: <span>${releaseDate}</span></h6>
+                <h6 class="text-white">Release Date: <span>${releaseDate?releaseDate:"no release date"}</span></h6>
             </div>
             <div class="d-flex mt-3">
                 <div class="text-start">
-                    <h6 class="text-white">Brand: <span>${chipSet}</span></h6>
-                    <h6 class="text-white">Brand: <span>${displaySize}</span></h6>
-                    <h6 class="text-white">Brand: <span>${memory}</span></h6>
-                    <h6 class="text-white">Brand: <span>${storage}</span></h6>
-                    <h6 class="text-white">Brand: <span>${Bluetooth}</span></h6>
+                    <h6 class="text-white">Chipset: <span>${chipSet?chipSet:"not found"}</span></h6>
+                    <h6 class="text-white">Display Size: <span>${displaySize?displaySize:"not found"}</span></h6>
+                    <h6 class="text-white">Memory: <span>${memory?memory:"not found"}</span></h6>
+                    <h6 class="text-white">Storage: <span>${storage?storage:"not found"}</span></h6>
+                    <h6 class="text-white">Bluetooth: <span>${details.data.others?.Bluetooth?details.data.others?.Bluetooth:"not found"}</span></h6>
                 </div>
                 <div class="text-start ms-3">
-                    <h6 class="text-white">Brand: <span>${USB}</span></h6>
-                    <h6 class="text-white">Brand: <span>${WLAN}</span></h6>
-                    <h6 class="text-white">Brand: <span>${Radio}</span></h6>
-                    <h6 class="text-white">Brand: <span>${NFC}</span></h6>
-                    <h6 class="text-white">Brand: <span>${GPS}</span></h6>
+                    <h6 class="text-white">USB: <span>${details.data.others?.USB?details.data.others.USB:"not found"}</span></h6>
+                    <h6 class="text-white">WLAN: <span>${details.data.others?.WLAN?details.data.others.WLAN:"not found"}</span></h6>
+                    <h6 class="text-white">Radio: <span>${details.data.others?.Radio?details.data.others.Radio:"not found"}</span></h6>
+                    <h6 class="text-white">NFC: <span>${details.data.others?.NFC?details.data.others.NFC:"not found"}</span></h6>
+                    <h6 class="text-white">GPS: <span>${details.data.others?.GPS?details.data.others.GPS:"not found"}</span></h6>
                 </div>
-            </div>  
+            </div>
+                <h6 class="text-white">Sensors: <span>${sensors.join()}</span></h6>   
         </div>
     </div>
     
