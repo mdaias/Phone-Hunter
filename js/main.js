@@ -72,21 +72,29 @@ const displaydetails = details => {
 
     div.innerHTML = `
     <div class="row p-2 shadow-lg">
-        <div class="col col-md-6 d-flex justify-content-center align-items-center">
+        <div class="col-12 col-md-6 d-flex justify-content-center align-items-center">
             <img src="${image}" class="w-50 mx-auto" alt="mobile picture">
         </div>
-        <div class="col col-md-6">
+        <div class="col-12 col-md-6">
             <div>
                 <h4 class="text-white">Name: ${name}</h4>
                 <h5 class="text-white">Brand: <span>${brand}</span></h5>
                 <h6 class="text-white">Release Date: <span>${releaseDate}</span></h6>
             </div>
-            <div class="d-flex text-center">
-                <div>
-
+            <div class="d-flex mt-3">
+                <div class="text-start">
+                    <h6 class="text-white">Brand: <span>${chipSet}</span></h6>
+                    <h6 class="text-white">Brand: <span>${displaySize}</span></h6>
+                    <h6 class="text-white">Brand: <span>${memory}</span></h6>
+                    <h6 class="text-white">Brand: <span>${storage}</span></h6>
+                    <h6 class="text-white">Brand: <span>${Bluetooth}</span></h6>
                 </div>
-                <div class="d-flex text-center">
-
+                <div class="text-start ms-3">
+                    <h6 class="text-white">Brand: <span>${USB}</span></h6>
+                    <h6 class="text-white">Brand: <span>${WLAN}</span></h6>
+                    <h6 class="text-white">Brand: <span>${Radio}</span></h6>
+                    <h6 class="text-white">Brand: <span>${NFC}</span></h6>
+                    <h6 class="text-white">Brand: <span>${GPS}</span></h6>
                 </div>
             </div>  
         </div>
