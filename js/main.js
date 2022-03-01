@@ -13,9 +13,11 @@ const searchPhone = () => {
 const displayResult = phones => {
     
     const divContainer = document.getElementById('phone-result');
+    const detailsContainer = document.getElementById('show-details');
     
     //clear previous result
     divContainer.textContent = '';
+    detailsContainer.textContent = '';
     
     phones.forEach(phone =>{
         // console.log(phone.slug)
@@ -50,9 +52,46 @@ const phoneDetails = id => {
 //display phone details
 const displaydetails = details => {
     console.log(details);
-    const {brand,image,name} = details.data;
+
+    const {brand,image,name,releaseDate} = details.data;
     const {chipSet,displaySize,memory,storage} =details.data.mainFeatures;
     const {Bluetooth,GPS,NFC,Radio,USB,WLAN} = details.data.others;
+    // console.log(Bluetooth,GPS,NFC);
 
-    console.log(Bluetooth,chipSet)
+    // let releaseDate = details.data;
+    // if(releaseDate == 0){
+    //     releaseDate = "no release date"
+    // }
+
+    const detailsContainer = document.getElementById('show-details');
+    //clear previous result
+    detailsContainer.textContent = '';
+
+    const div = document.createElement('div');
+    div.classList.add('container');
+
+    div.innerHTML = `
+    <div class="row p-2 shadow-lg">
+        <div class="col col-md-6 d-flex justify-content-center align-items-center">
+            <img src="${image}" class="w-50 mx-auto" alt="mobile picture">
+        </div>
+        <div class="col col-md-6">
+            <div>
+                <h4 class="text-white">Name: ${name}</h4>
+                <h5 class="text-white">Brand: <span>${brand}</span></h5>
+                <h6 class="text-white">Release Date: <span>${releaseDate}</span></h6>
+            </div>
+            <div class="d-flex text-center">
+                <div>
+
+                </div>
+                <div class="d-flex text-center">
+
+                </div>
+            </div>  
+        </div>
+    </div>
+    
+    `
+    detailsContainer.appendChild(div);
 }
