@@ -1,22 +1,38 @@
 //load search data
     const searchPhone = () => {
+        errorMsg('none');
     const searchField = document.getElementById('input-field');
     const searchText = searchField.value;
     searchField.value = '';
-    document.getElementById('spinner').style.display="block";
+    spinner('block')  
+
     const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`
 
     fetch(url)
     .then(res => res.json())
     .then(data => displayResult(data.data))
 }
+
+    //Error handling
+    const errorMsg = (display) =>{
+        document.getElementById('error-msg').style.display=display;
+    }
+    //spinner
+    const spinner = (display) =>{
+        document.getElementById('spinner').style.display=display;
+    }
+
 //Display search result
-    const displayResult = phones => {
-    document.getElementById('spinner').style.display="none";
+    const displayResult = phones =>{
+        if(phones.length == 0){
+            errorMsg('block');
+        }
+    spinner('none'); 
+
     const divContainer = document.getElementById('phone-result');
     const detailsContainer = document.getElementById('show-details');
     
-//clear previous result
+    //clear previous result
     divContainer.textContent = '';
     detailsContainer.textContent = '';
 
@@ -59,13 +75,14 @@
 //Destructuring object
     const {brand,image,name,releaseDate} = details.data;
     const {chipSet,displaySize,memory,storage} =details.data.mainFeatures;
+    // const {Bluetooth,GPS,NFC,Radio,USB,WLAN} =details?.data?.others?others:"not found";
+    
 
     const sensors = details.data.mainFeatures.sensors;
-        // console.log(sensors);
 
     const detailsContainer = document.getElementById('show-details');
 
-//clear previous result
+    //clear previous result
     detailsContainer.textContent = '';
 
     const div = document.createElement('div');
@@ -100,8 +117,7 @@
             </div>
                 <h6 class="text-white text-center">Sensors: <span>${sensors.join()}</span></h6>   
         </div>
-    </div>
-    
+    </div>  
     `
     detailsContainer.appendChild(div);
 }
