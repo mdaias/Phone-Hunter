@@ -11,7 +11,7 @@
 
     fetch(url)
     .then(res => res.json())
-    .then(data => displayResult(data.data))
+    .then(data => displayResult(data.data.slice(0,20)))
 }
 
     //Error handling
@@ -38,8 +38,8 @@
     detailsContainer.textContent = '';
 
 //Show first 20 result
-    const first20Phones = phones.slice(0,20);
-    first20Phones.forEach(phone =>{
+    // const first20Phones = phones.slice(0,20);
+    phones.forEach(phone =>{
     //  console.log(phone)
 
     const div = document.createElement('div');
