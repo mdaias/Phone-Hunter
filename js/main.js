@@ -1,10 +1,11 @@
 //load search data
     const searchPhone = () => {
         errorMsg('none');
+
     const searchField = document.getElementById('input-field');
     const searchText = searchField.value;
     searchField.value = '';
-    spinner('block')  
+    spinner('block')
 
     const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`
 
@@ -48,7 +49,7 @@
             <img src="${phone.image}" class="card-img-top w-50 mx-auto" alt="...">
             <div class="card-body">
                 <h4 class="card-title text-center">${phone.phone_name}</h4>
-                <h5 class="card-title">Brand: <span>${phone.brand}</span></h5>
+                <h3 class="brand fs-4 card-title">Brand: ${phone.brand}</h3>
             </div>
 
             <div class="d-grid gap-2 col-6 mx-auto">
@@ -74,9 +75,7 @@
 
 //Destructuring object
     const {brand,image,name,releaseDate} = details.data;
-    const {chipSet,displaySize,memory,storage} =details.data.mainFeatures;
-    // const {Bluetooth,GPS,NFC,Radio,USB,WLAN} =details?.data?.others?others:"not found";
-    
+    const {chipSet,displaySize,memory,storage} =details.data.mainFeatures;  
 
     const sensors = details.data.mainFeatures.sensors;
 
@@ -96,26 +95,46 @@
         <div class="col-12 col-md-6">
             <div>
                 <h3 class="details-heading text-center mt-2">${brand} ${name} Full Specifications</h3>
-                <h5 class="text-white">Brand: <span>${brand}</span></h5>
-                <h6 class="text-white">Release Date: <span>${releaseDate?releaseDate:"no release date"}</span></h6>
+                <h6 class="text-center"><span>${releaseDate?releaseDate:"no release date"}</span></h6>
+                <h3 class="brand ms-3">Brand: <span class="fs-2 shadow-sm">${brand}</span></h3>
             </div>
             <div class="d-flex mt-3">
                 <div class="text-start">
-                    <h6 class="text-white">Chipset: <span>${chipSet?chipSet:"not found"}</span></h6>
-                    <h6 class="text-white">Display Size: <span>${displaySize?displaySize:"not found"}</span></h6>
-                    <h6 class="text-white">Memory: <span>${memory?memory:"not found"}</span></h6>
-                    <h6 class="text-white">Storage: <span>${storage?storage:"not found"}</span></h6>
-                    <h6 class="text-white">Bluetooth: <span>${details.data.others?.Bluetooth?details.data.others?.Bluetooth:"not found"}</span></h6>
+                    <ul>
+                        <li>
+                        <h6>Chipset: <span>${chipSet?chipSet:"not found"}</span></h6></li>
+                        <li>
+                        <h6>Display Size: <span>${displaySize?displaySize:"not found"}</span></h6>
+                        </li>
+                        <li>
+                        <h6>Memory: <span>${memory?memory:"not found"}</span></h6>
+                        </li>
+                        <li>
+                        <h6>Storage: <span>${storage?storage:"not found"}</span></h6></li>
+                        <li>
+                        <h6>Bluetooth: <span>${details.data.others?.Bluetooth?details.data.others?.Bluetooth:"not found"}</span></h6>
+                        </li>
+                    </ul>
                 </div>
                 <div class="text-start ms-3">
-                    <h6 class="text-white">USB: <span>${details.data.others?.USB?details.data.others.USB:"not found"}</span></h6>
-                    <h6 class="text-white">WLAN: <span>${details.data.others?.WLAN?details.data.others.WLAN:"not found"}</span></h6>
-                    <h6 class="text-white">Radio: <span>${details.data.others?.Radio?details.data.others.Radio:"not found"}</span></h6>
-                    <h6 class="text-white">NFC: <span>${details.data.others?.NFC?details.data.others.NFC:"not found"}</span></h6>
-                    <h6 class="text-white">GPS: <span>${details.data.others?.GPS?details.data.others.GPS:"not found"}</span></h6>
+                    <ul class="">
+                        <li>
+                        <h6>USB: <span>${details.data.others?.USB?details.data.others.USB:"not found"}</span></h6>
+                        </li>
+                        <li>
+                        <h6>WLAN: <span>${details.data.others?.WLAN?details.data.others.WLAN:"not found"}</span></h6></li>
+                        <li>
+                        <h6>Radio: <span>${details.data.others?.Radio?details.data.others.Radio:"not found"}</span></h6></li>
+                        <li>
+                        <h6>NFC: <span>${details.data.others?.NFC?details.data.others.NFC:"not found"}</span></h6>
+                        </li>
+                        <li>
+                        <h6>GPS: <span>${details.data.others?.GPS?details.data.others.GPS:"not found"}</span></h6>
+                        </li>
+                    </ul>
                 </div>
             </div>
-                <h6 class="text-white text-center">Sensors: <span>${sensors.join()}</span></h6>   
+                <h6 class="text-center">Sensors: <span>${sensors.join()}</span></h6>   
         </div>
     </div>  
     `
