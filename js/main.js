@@ -1,17 +1,20 @@
 //load search data
     const searchPhone = () => {
         errorMsg('none');
+        const bgBody = document.getElementById('body');
+        bgBody.classList.remove('bg-dark')
+        bgBody.classList.add('bg-light');
 
     const searchField = document.getElementById('input-field');
     const searchText = searchField.value;
     searchField.value = '';
-    spinner('block')
+    spinner('block');
 
     const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`
 
     fetch(url)
     .then(res => res.json())
-    .then(data => displayResult(data.data.slice(0,20)))
+    .then(data => displayResult(data.data))
 }
 
     //Error handling
@@ -24,8 +27,8 @@
     }
 
 //Display search result
-    const displayResult = phones =>{
-        if(phones.length == 0){
+    const displayResult = phonesData =>{
+        if(phonesData.length == 0){
             errorMsg('block');
         }
     spinner('none'); 
@@ -37,8 +40,21 @@
     divContainer.textContent = '';
     detailsContainer.textContent = '';
 
-//Show first 20 result
-    // const first20Phones = phones.slice(0,20);
+    const slice = x =>{
+        let output = 0;
+        if(x==true){
+          const result = phonesData.slice(0,20);
+          output = result;
+        }
+        else if(x==false){
+            const result2 = phonesData.slice(0,40);
+            output = result2;
+        }
+        return output;
+    }
+
+    const phones = slice(false);
+    console.log(phones);
     phones.forEach(phone =>{
     //  console.log(phone)
 
